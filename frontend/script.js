@@ -183,6 +183,77 @@ async function loadRecommendedMovies() {
 }
 
 /* -------------------------
+   LOAD AND DISPLAY REVIEWS FOR SELECTED MOVIE
+------------------------- */
+const reviewsDisplaySection = document.getElementById("reviewsDisplaySection");
+const reviewsContainer = document.getElementById("reviewsContainer");
+const reviewsMovieTitle = document.getElementById("reviewsMovieTitle");
+
+async function loadReviews(movieId, movieTitle) {
+  if (!movieId) {
+    reviewsDisplaySection.style.display = "none";
+    return;
+  }
+
+  try {
+    console.log(`Loading reviews for movie ${movieId}...`);
+    const response = await fetch(`${API_URL}/api/movies/${movieId}`);
+
+    if (!response.ok) {
+      throw new Error("Failed to load reviews");
+    }
+
+    const data = await response.json();
+    const reviews = data.reviews || [];
+
+    reviewsMovieTitle.textContent = `Reviews for "${movieTitle}"`;
+    reviewsContainer.innerHTML = "";
+
+    if (!reviews.length) {
+      reviewsContainer.innerHTML = `<p class="empty-reviews">No reviews yet. Be the first to review this movie!</p>`;
+      reviewsDisplaySection.style.display = "block";
+      return;
+    }
+
+    reviews.forEach((review) => {
+      const reviewDate = new Date(review.created_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+
+      const reviewCard = `
+        <div class="review-card">
+          <div class="review-header">
+            <div>
+              <div class="review-username">${review.username}</div>
+              <div class="review-rating">${'⭐'.repeat(review.rating)} ${review.rating}/5 Stars</div>
+            </div>
+            <div class="review-date">${reviewDate}</div>
+          </div>
+          <p class="review-text">${review.review_text}</p>
+        </div>
+      `;
+      reviewsContainer.innerHTML += reviewCard;
+    });
+
+    reviewsDisplaySection.style.display = "block";
+  } catch (error) {
+    console.error("Error loading reviews:", error);
+    reviewsContainer.innerHTML = `<p class="empty-reviews">Unable to load reviews. Please try again later.</p>`;
+    reviewsDisplaySection.style.display = "block";
+  }
+}
+
+// Add event listener to movie select dropdown
+movieSelect.addEventListener("change", (event) => {
+  const movieId = event.target.value;
+  const selectedOption = event.target.options[event.target.selectedIndex];
+  const movieTitle = selectedOption.text;
+  loadReviews(movieId, movieTitle);
+});
+
+/* -------------------------
    SEARCH MOVIES
 ------------------------- */
 async function searchMovies() {
@@ -256,7 +327,16 @@ reviewForm.addEventListener("submit", async (event) => {
 
     showMessage("✓ Review submitted successfully!");
     reviewForm.reset();
-    loadMovies();
+    
+    // Reload reviews for the selected movie to show the new review
+    const selectedMovieId = movieSelect.value;
+    const selectedOption = movieSelect.options[movieSelect.selectedIndex];
+    const movieTitle = selectedOption.text;
+    if (selectedMovieId) {
+      setTimeout(() => {
+        loadReviews(selectedMovieId, movieTitle);
+      }, 500);
+    }
   } catch (error) {
     console.error("Review submission failed:", error);
     showMessage(`✗ ${error.message || 'Failed to submit review. Please try again.'}`, true);
