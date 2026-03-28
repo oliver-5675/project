@@ -115,7 +115,6 @@ function showMessage(text, isError = false) {
 function createMovieCard(movie) {
   return `
     <div class="movie-card">
-      <img src="${movie.poster}" alt="${movie.title}" loading="lazy" />
       <div class="movie-info">
         <h3>${movie.title}</h3>
         <div class="movie-meta">${movie.genre} • ${movie.year}</div>

@@ -289,7 +289,7 @@ body {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  overflow: hidden;
+  padding: 24px;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.2),
@@ -306,19 +306,10 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.movie-card img {
-  width: 100%;
-  height: 340px;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.movie-card:hover img {
-  transform: scale(1.05);
-}
-
 .movie-info {
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .movie-info h3 {
