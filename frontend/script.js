@@ -10,14 +10,14 @@ const reviewForm = document.getElementById("reviewForm");
 const reviewMessage = document.getElementById("reviewMessage");
 const searchInput = document.getElementById("searchInput");
 
-// Fallback mock data for testing
+// Fallback mock data with images
 const FALLBACK_MOVIES = [
   {
     id: 1,
     title: "2018",
     genre: "Malayalam • Drama",
     year: 2023,
-    poster: "https://images.unsplash.com/photo-1594909122845-11bda064b412?w=400&h=600&fit=crop",
+    poster: "https://m.media-amazon.com/images/M/MV5BMTgzNTc5YjAtMWY2Ny00MzYwLWI4NzAtYTRkZjAwMjcwNDMxXkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg",
     description: "A survival drama based on the devastating Kerala floods and the resilience of ordinary people.",
     recommended: true
   },
@@ -26,7 +26,7 @@ const FALLBACK_MOVIES = [
     title: "Premam",
     genre: "Malayalam • Romance",
     year: 2015,
-    poster: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=600&fit=crop",
+    poster: "https://m.media-amazon.com/images/M/MV5BOTU3NDcxMDAtODhhMS00NDYxLWE4MGUtNDBlNjZiMzgwYjhhXkEyXkFqcGdeQXVyNzI1NzMxNzM@._V1_UX182_CR0,0,182,268_AL_.jpg",
     description: "A coming-of-age romantic drama that follows different stages of love in George's life.",
     recommended: true
   },
@@ -35,8 +35,26 @@ const FALLBACK_MOVIES = [
     title: "Bramayugam",
     genre: "Malayalam • Horror",
     year: 2024,
-    poster: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&h=600&fit=crop",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjE4MjE0OTktMzJlNS00MDI1LWJjMDItODAzOGIyNzQ2NTI5XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg",
     description: "A dark black-and-white horror thriller set in an eerie ancient mansion.",
+    recommended: true
+  },
+  {
+    id: 4,
+    title: "Manjummel Boys",
+    genre: "Malayalam • Adventure",
+    year: 2024,
+    poster: "https://m.media-amazon.com/images/M/MV5BMjJiYjYxNGMtZDczMS00ZGZjLWI3MDctODcwMDc1M2ZjZGM4XkEyXkFqcGdeQXVyMTUzNTg3NjUx._V1_UX182_CR0,0,182,268_AL_.jpg",
+    description: "A gripping survival thriller based on a true friendship and rescue incident.",
+    recommended: true
+  },
+  {
+    id: 6,
+    title: "Vikram",
+    genre: "Tamil • Action",
+    year: 2022,
+    poster: "https://m.media-amazon.com/images/M/MV5BZTJkZTI0MzItYmM2Ni00NGM2LTliZTgtNDI2ZGI4ZGVhODFlXkEyXkFqcGdeQXVyMTEzNzg0Ng@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+    description: "An intense action thriller featuring secret agents, gang wars, and explosive revenge.",
     recommended: true
   },
   {
@@ -44,7 +62,7 @@ const FALLBACK_MOVIES = [
     title: "Leo",
     genre: "Tamil • Action",
     year: 2023,
-    poster: "https://images.unsplash.com/photo-1486826325049-e0e0d8f1dc3c?w=400&h=600&fit=crop",
+    poster: "https://m.media-amazon.com/images/M/MV5BYWUwYzdlZjUtMDcyMS00YjI0LThlMzUtNWM4ZWZkZjQ5OTY1XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg",
     description: "A stylish action thriller about a man whose past returns to haunt him.",
     recommended: true
   },
@@ -53,11 +71,21 @@ const FALLBACK_MOVIES = [
     title: "96",
     genre: "Tamil • Romance",
     year: 2018,
-    poster: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop",
+    poster: "https://m.media-amazon.com/images/M/MV5BMTQwOTU5MTc5Nl5BMl5BanBnXkFtZTgwNzA4Njc3NDM@._V1_UX182_CR0,0,182,268_AL_.jpg",
     description: "A nostalgic romantic drama about two former lovers reuniting after years.",
+    recommended: true
+  },
+  {
+    id: 10,
+    title: "Kaithi",
+    genre: "Tamil • Thriller",
+    year: 2019,
+    poster: "https://m.media-amazon.com/images/M/MV5BNGM0YjMyOWQtMjJmOS00MjA1LTkwMWUtOGQzNGI3OTYxYzY4XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg",
+    description: "A high-octane thriller that unfolds over a single dangerous night.",
     recommended: true
   }
 ];
+
 
 /* -------------------------
    HELPER: SHOW MESSAGE
@@ -124,6 +152,50 @@ async function loadMovies() {
       movieSelect.innerHTML += `
         <option value="${movie.id}">${movie.title}</option>
       `;
+    });
+  } catch (error) {
+    console.error("Error loading movies:", error);
+    // Use fallback data if API fails
+    moviesContainer.innerHTML = "";
+    movieSelect.innerHTML = `<option value="">Select Movie</option>`;
+    
+    if (FALLBACK_MOVIES.length > 0) {
+      FALLBACK_MOVIES.forEach((movie) => {
+        moviesContainer.innerHTML += createMovieCard(movie);
+        movieSelect.innerHTML += `
+          <option value="${movie.id}">${movie.title}</option>
+        `;
+      });
+    } else {
+      moviesContainer.innerHTML = `<p class="empty-state">Failed to load movies.</p>`;
+    }
+  }
+}
+
+/* -------------------------
+   LOAD ALL MOVIES
+------------------------- */
+async function loadMovies() {
+  try {
+    const response = await fetch(`${API_URL}/api/movies`);
+
+    if (!response.ok) {
+      throw new Error("Failed to load movies");
+    }
+
+    const movies = await response.json();
+
+    moviesContainer.innerHTML = "";
+    movieSelect.innerHTML = `<option value="">Select Movie</option>`;
+
+    if (!movies.length) {
+      moviesContainer.innerHTML = `<p class="empty-state">No movies available right now.</p>`;
+      return;
+    }
+
+    movies.forEach((movie) => {
+      moviesContainer.innerHTML += createMovieCard(movie);
+      movieSelect.innerHTML += `<option value="${movie.id}">${movie.title}</option>`;
     });
   } catch (error) {
     console.error("Error loading movies:", error);
@@ -327,16 +399,7 @@ reviewForm.addEventListener("submit", async (event) => {
 
     showMessage("✓ Review submitted successfully!");
     reviewForm.reset();
-    
-    // Reload reviews for the selected movie to show the new review
-    const selectedMovieId = movieSelect.value;
-    const selectedOption = movieSelect.options[movieSelect.selectedIndex];
-    const movieTitle = selectedOption.text;
-    if (selectedMovieId) {
-      setTimeout(() => {
-        loadReviews(selectedMovieId, movieTitle);
-      }, 500);
-    }
+    loadMovies();
   } catch (error) {
     console.error("Review submission failed:", error);
     showMessage(`✗ ${error.message || 'Failed to submit review. Please try again.'}`, true);

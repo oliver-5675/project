@@ -74,16 +74,16 @@ app.post('/api/init-db', async (req, res) => {
     
     // Insert movie data
     const movies = [
-      ['2018', 'Malayalam • Drama', 2023, 'https://images.unsplash.com/photo-1594909122845-11bda064b412?w=400&h=600&fit=crop', 'A survival drama based on the devastating Kerala floods and the resilience of ordinary people.', true],
-      ['Premam', 'Malayalam • Romance', 2015, 'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=600&fit=crop', 'A coming-of-age romantic drama that follows different stages of love in George\'s life.', true],
-      ['Bramayugam', 'Malayalam • Horror', 2024, 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&h=600&fit=crop', 'A dark black-and-white horror thriller set in an eerie ancient mansion.', true],
-      ['Manjummel Boys', 'Malayalam • Adventure', 2024, 'https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=400&h=600&fit=crop', 'A gripping survival thriller based on a true friendship and rescue incident.', true],
-      ['Lucifer', 'Malayalam • Action', 2019, 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=600&fit=crop', 'A political action thriller revolving around power, mystery, and leadership.', false],
-      ['Vikram', 'Tamil • Action', 2022, 'https://images.unsplash.com/photo-1533613220915-121e63e41e2d?w=400&h=600&fit=crop', 'An intense action thriller featuring secret agents, gang wars, and explosive revenge.', true],
-      ['Leo', 'Tamil • Action', 2023, 'https://images.unsplash.com/photo-1486826325049-e0e0d8f1dc3c?w=400&h=600&fit=crop', 'A stylish action thriller about a man whose past returns to haunt him.', true],
-      ['96', 'Tamil • Romance', 2018, 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop', 'A nostalgic romantic drama about two former lovers reuniting after years.', true],
-      ['Jigarthanda DoubleX', 'Tamil • Crime', 2023, 'https://images.unsplash.com/photo-1519669335166-040eac643f43?w=400&h=600&fit=crop', 'A bold crime drama blending cinema, politics, and rebellion.', false],
-      ['Kaithi', 'Tamil • Thriller', 2019, 'https://images.unsplash.com/photo-1551817601-beec7fbf91d5?w=400&h=600&fit=crop', 'A high-octane thriller that unfolds over a single dangerous night.', true]
+      ['2018', 'Malayalam • Drama', 2023, 'https://m.media-amazon.com/images/M/MV5BMTgzNTc5YjAtMWY2Ny00MzYwLWI4NzAtYTRkZjAwMjcwNDMxXkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A survival drama based on the devastating Kerala floods and the resilience of ordinary people.', true],
+      ['Premam', 'Malayalam • Romance', 2015, 'https://m.media-amazon.com/images/M/MV5BOTU3NDcxMDAtODhhMS00NDYxLWE4MGUtNDBlNjZiMzgwYjhhXkEyXkFqcGdeQXVyNzI1NzMxNzM@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A coming-of-age romantic drama that follows different stages of love in George\'s life.', true],
+      ['Bramayugam', 'Malayalam • Horror', 2024, 'https://m.media-amazon.com/images/M/MV5BMjE4MjE0OTktMzJlNS00MDI1LWJjMDItODAzOGIyNzQ2NTI5XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A dark black-and-white horror thriller set in an eerie ancient mansion.', true],
+      ['Manjummel Boys', 'Malayalam • Adventure', 2024, 'https://m.media-amazon.com/images/M/MV5BMjJiYjYxNGMtZDczMS00ZGZjLWI3MDctODcwMDc1M2ZjZGM4XkEyXkFqcGdeQXVyMTUzNTg3NjUx._V1_UX182_CR0,0,182,268_AL_.jpg', 'A gripping survival thriller based on a true friendship and rescue incident.', true],
+      ['Lucifer', 'Malayalam • Action', 2019, 'https://m.media-amazon.com/images/M/MV5BMTQyNjAwMjQtZTUyMS00MjZjLTgyZWMtNmI1OWEyZTkxNzQ5XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A political action thriller revolving around power, mystery, and leadership.', false],
+      ['Vikram', 'Tamil • Action', 2022, 'https://m.media-amazon.com/images/M/MV5BZTJkZTI0MzItYmM2Ni00NGM2LTliZTgtNDI2ZGI4ZGVhODFlXkEyXkFqcGdeQXVyMTEzNzg0Ng@@._V1_UX182_CR0,0,182,268_AL_.jpg', 'An intense action thriller featuring secret agents, gang wars, and explosive revenge.', true],
+      ['Leo', 'Tamil • Action', 2023, 'https://m.media-amazon.com/images/M/MV5BYWUwYzdlZjUtMDcyMS00YjI0LThlMzUtNWM4ZWZkZjQ5OTY1XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A stylish action thriller about a man whose past returns to haunt him.', true],
+      ['96', 'Tamil • Romance', 2018, 'https://m.media-amazon.com/images/M/MV5BMTQwOTU5MTc5Nl5BMl5BanBnXkFtZTgwNzA4Njc3NDM@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A nostalgic romantic drama about two former lovers reuniting after years.', true],
+      ['Jigarthanda DoubleX', 'Tamil • Crime', 2023, 'https://m.media-amazon.com/images/M/MV5BMTI1MTk4NzgyNl5BMl5BanBnXkFtZTgwNzA4MjY3NjM@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A bold crime drama blending cinema, politics, and rebellion.', false],
+      ['Kaithi', 'Tamil • Thriller', 2019, 'https://m.media-amazon.com/images/M/MV5BNGM0YjMyOWQtMjJmOS00MjA1LTkwMWUtOGQzNGI3OTYxYzY4XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UX182_CR0,0,182,268_AL_.jpg', 'A high-octane thriller that unfolds over a single dangerous night.', true]
     ];
     
     for (const movie of movies) {
