@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FilmVerse | Movie Review & Recommendation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar" role="navigation">
+    <div class="navbar-container">
+      <div class="navbar-brand">
+        <h1 class="logo">FilmVerse</h1>
+      </div>
+      <nav class="navbar-menu">
+        <a href="#featured" class="nav-link">Featured</a>
+        <a href="#recommended" class="nav-link">Recommended</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" role="region" aria-label="Hero">
+      <div class="hero-background"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-container">
+        <div class="hero-content glass-effect">
+          <span class="badge badge-primary">Malayalam & Tamil Movie Review Platform</span>
+          <h2 class="hero-title">Discover South Indian Cinema.</h2>
+          <p class="hero-description">
+            Explore trending Malayalam and Tamil movies, share your reviews, and discover your next favorite film.
+          </p>
+          <div class="search-container">
+            <div class="search-box glass-input">
+              <input 
+                type="text" 
+                id="searchInput" 
+                class="search-input"
+                placeholder="Search Malayalam or Tamil movies..." 
+                aria-label="Search movies"
+              />
+              <button class="search-btn" onclick="searchMovies()" aria-label="Search button">
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Movies Section -->
+    <section id="featured" class="content-section" role="region" aria-label="Featured Movies">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-badge">Trending Now</span>
+          <h2 class="section-title">Featured Movies</h2>
+        </div>
+        <div id="moviesContainer" class="movie-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Recommended Movies Section -->
+    <section id="recommended" class="content-section" role="region" aria-label="Recommended Movies">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-badge">Picked For You</span>
+          <h2 class="section-title">Recommended Movies</h2>
+        </div>
+        <div id="recommendedContainer" class="movie-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="content-section review-section" role="region" aria-label="Reviews">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-badge">Community Reviews</span>
+          <h2 class="section-title">Add Your Review</h2>
+        </div>
+
+        <!-- Review Form -->
+        <div class="review-form-wrapper glass-effect">
+          <form id="reviewForm" class="review-form" role="form" aria-label="Review form">
+            <div class="form-group">
+              <select id="movieSelect" class="form-control" required aria-label="Select Movie">
+                <option value="">Select Movie</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <input 
+                type="text" 
+                id="username" 
+                class="form-control"
+                placeholder="Your Name" 
+                required 
+                aria-label="Your name"
+              />
+            </div>
+
+            <div class="form-group">
+              <select id="rating" class="form-control" required aria-label="Rating">
+                <option value="">Select Rating</option>
+                <option value="1">⭐ 1 Star</option>
+                <option value="2">⭐ 2 Stars</option>
+                <option value="3">⭐ 3 Stars</option>
+                <option value="4">⭐ 4 Stars</option>
+                <option value="5">⭐ 5 Stars</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <textarea 
+                id="reviewText" 
+                class="form-control form-textarea"
+                rows="5" 
+                placeholder="Write your review..." 
+                required 
+                aria-label="Review text"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" aria-label="Submit review">
+              <span>Submit Review</span>
+            </button>
+          </form>
+
+          <div id="reviewMessage" class="message" role="alert" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-container">
+      <p class="footer-text">© 2026 FilmVerse | Malayalam & Tamil Movie Review Platform</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

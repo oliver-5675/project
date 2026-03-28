@@ -1,0 +1,42 @@
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS movies;
+
+CREATE TABLE movies (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    genre VARCHAR(100) NOT NULL,
+    year INT NOT NULL,
+    poster TEXT NOT NULL,
+    description TEXT NOT NULL,
+    recommended BOOLEAN DEFAULT false
+);
+
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    movie_id INT REFERENCES movies(id) ON DELETE CASCADE,
+    username VARCHAR(100) NOT NULL,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    review_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO movies (title, genre, year, poster, description, recommended) VALUES
+('2018', 'Malayalam • Drama', 2023, 'https://upload.wikimedia.org/wikipedia/en/0/08/2018_film_poster.jpg', 'A survival drama based on the devastating Kerala floods and the resilience of ordinary people.', true),
+
+('Premam', 'Malayalam • Romance', 2015, 'https://upload.wikimedia.org/wikipedia/en/9/9f/Premam_poster.jpg', 'A coming-of-age romantic drama that follows different stages of love in George’s life.', true),
+
+('Bramayugam', 'Malayalam • Horror', 2024, 'https://upload.wikimedia.org/wikipedia/en/0/0b/Bramayugam_film_poster.jpg', 'A dark black-and-white horror thriller set in an eerie ancient mansion.', true),
+
+('Manjummel Boys', 'Malayalam • Adventure', 2024, 'https://upload.wikimedia.org/wikipedia/en/5/58/Manjummel_Boys_poster.jpg', 'A gripping survival thriller based on a true friendship and rescue incident.', true),
+
+('Lucifer', 'Malayalam • Action', 2019, 'https://upload.wikimedia.org/wikipedia/en/c/c1/Lucifer_2019_Malayalam_film_poster.jpg', 'A political action thriller revolving around power, mystery, and leadership.', false),
+
+('Vikram', 'Tamil • Action', 2022, 'https://upload.wikimedia.org/wikipedia/en/9/93/Vikram_2022_poster.jpg', 'An intense action thriller featuring secret agents, gang wars, and explosive revenge.', true),
+
+('Leo', 'Tamil • Action', 2023, 'https://upload.wikimedia.org/wikipedia/en/7/7f/Leo_%282023_Indian_film%29.jpg', 'A stylish action thriller about a man whose past returns to haunt him.', true),
+
+('96', 'Tamil • Romance', 2018, 'https://upload.wikimedia.org/wikipedia/en/0/0a/96_film_poster.jpg', 'A nostalgic romantic drama about two former lovers reuniting after years.', true),
+
+('Jigarthanda DoubleX', 'Tamil • Crime', 2023, 'https://upload.wikimedia.org/wikipedia/en/f/f8/Jigarthanda_DoubleX.jpg', 'A bold crime drama blending cinema, politics, and rebellion.', false),
+
+('Kaithi', 'Tamil • Thriller', 2019, 'https://upload.wikimedia.org/wikipedia/en/9/9f/Kaithi_poster.jpg', 'A high-octane thriller that unfolds over a single dangerous night.', true);
