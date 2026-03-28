@@ -1,4 +1,7 @@
+// Production backend URL
 const API_URL = "https://project-y7dn.onrender.com";
+// For local development, change to:
+// const API_URL = "http://localhost:5000";
 
 const moviesContainer = document.getElementById("moviesContainer");
 const recommendedContainer = document.getElementById("recommendedContainer");
@@ -6,6 +9,55 @@ const movieSelect = document.getElementById("movieSelect");
 const reviewForm = document.getElementById("reviewForm");
 const reviewMessage = document.getElementById("reviewMessage");
 const searchInput = document.getElementById("searchInput");
+
+// Fallback mock data for testing
+const FALLBACK_MOVIES = [
+  {
+    id: 1,
+    title: "2018",
+    genre: "Malayalam • Drama",
+    year: 2023,
+    poster: "https://images.unsplash.com/photo-1594909122845-11bda064b412?w=400&h=600&fit=crop",
+    description: "A survival drama based on the devastating Kerala floods and the resilience of ordinary people.",
+    recommended: true
+  },
+  {
+    id: 2,
+    title: "Premam",
+    genre: "Malayalam • Romance",
+    year: 2015,
+    poster: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=600&fit=crop",
+    description: "A coming-of-age romantic drama that follows different stages of love in George's life.",
+    recommended: true
+  },
+  {
+    id: 3,
+    title: "Bramayugam",
+    genre: "Malayalam • Horror",
+    year: 2024,
+    poster: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&h=600&fit=crop",
+    description: "A dark black-and-white horror thriller set in an eerie ancient mansion.",
+    recommended: true
+  },
+  {
+    id: 7,
+    title: "Leo",
+    genre: "Tamil • Action",
+    year: 2023,
+    poster: "https://images.unsplash.com/photo-1486826325049-e0e0d8f1dc3c?w=400&h=600&fit=crop",
+    description: "A stylish action thriller about a man whose past returns to haunt him.",
+    recommended: true
+  },
+  {
+    id: 8,
+    title: "96",
+    genre: "Tamil • Romance",
+    year: 2018,
+    poster: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop",
+    description: "A nostalgic romantic drama about two former lovers reuniting after years.",
+    recommended: true
+  }
+];
 
 /* -------------------------
    HELPER: SHOW MESSAGE
@@ -75,7 +127,20 @@ async function loadMovies() {
     });
   } catch (error) {
     console.error("Error loading movies:", error);
-    moviesContainer.innerHTML = `<p class="empty-state">Failed to load movies.</p>`;
+    // Use fallback data if API fails
+    moviesContainer.innerHTML = "";
+    movieSelect.innerHTML = `<option value="">Select Movie</option>`;
+    
+    if (FALLBACK_MOVIES.length > 0) {
+      FALLBACK_MOVIES.forEach((movie) => {
+        moviesContainer.innerHTML += createMovieCard(movie);
+        movieSelect.innerHTML += `
+          <option value="${movie.id}">${movie.title}</option>
+        `;
+      });
+    } else {
+      moviesContainer.innerHTML = `<p class="empty-state">Failed to load movies.</p>`;
+    }
   }
 }
 
@@ -104,7 +169,16 @@ async function loadRecommendedMovies() {
     });
   } catch (error) {
     console.error("Error loading recommended movies:", error);
-    recommendedContainer.innerHTML = `<p class="empty-state">Failed to load recommendations.</p>`;
+    // Use fallback data if API fails
+    recommendedContainer.innerHTML = "";
+    const recommendedMovies = FALLBACK_MOVIES.filter(m => m.recommended);
+    if (recommendedMovies.length > 0) {
+      recommendedMovies.forEach((movie) => {
+        recommendedContainer.innerHTML += createMovieCard(movie);
+      });
+    } else {
+      recommendedContainer.innerHTML = `<p class="empty-state">Failed to load recommendations.</p>`;
+    }
   }
 }
 
@@ -153,7 +227,7 @@ reviewForm.addEventListener("submit", async (event) => {
   const reviewData = {
     movie_id: movieSelect.value,
     username: document.getElementById("username").value.trim(),
-    rating: document.getElementById("rating").value,
+    rating: parseInt(document.getElementById("rating").value),
     review_text: document.getElementById("reviewText").value.trim()
   };
 
@@ -163,6 +237,7 @@ reviewForm.addEventListener("submit", async (event) => {
   }
 
   try {
+    console.log("Submitting review:", reviewData);
     const response = await fetch(`${API_URL}/api/reviews`, {
       method: "POST",
       headers: {
@@ -171,7 +246,9 @@ reviewForm.addEventListener("submit", async (event) => {
       body: JSON.stringify(reviewData)
     });
 
+    console.log("Response status:", response.status);
     const data = await response.json();
+    console.log("Response data:", data);
 
     if (!response.ok) {
       throw new Error(data.error || "Failed to submit review");
@@ -179,9 +256,10 @@ reviewForm.addEventListener("submit", async (event) => {
 
     showMessage("✓ Review submitted successfully!");
     reviewForm.reset();
+    loadMovies();
   } catch (error) {
     console.error("Review submission failed:", error);
-    showMessage(`✗ ${error.message}`, true);
+    showMessage(`✗ ${error.message || 'Failed to submit review. Please try again.'}`, true);
   }
 });
 
