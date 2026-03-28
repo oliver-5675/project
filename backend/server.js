@@ -72,18 +72,18 @@ app.post('/api/init-db', async (req, res) => {
       )
     `);
     
-    // Insert movie data with reliable image URLs
+    // Insert movie data with working image URLs
     const movies = [
-      ['2018', 'Malayalam • Drama', 2023, 'https://via.placeholder.com/300x450?text=2018', 'A survival drama based on the devastating Kerala floods and the resilience of ordinary people.', true],
-      ['Premam', 'Malayalam • Romance', 2015, 'https://via.placeholder.com/300x450?text=Premam', 'A coming-of-age romantic drama that follows different stages of love in George\'s life.', true],
-      ['Bramayugam', 'Malayalam • Horror', 2024, 'https://via.placeholder.com/300x450?text=Bramayugam', 'A dark black-and-white horror thriller set in an eerie ancient mansion.', true],
-      ['Manjummel Boys', 'Malayalam • Adventure', 2024, 'https://via.placeholder.com/300x450?text=Manjummel+Boys', 'A gripping survival thriller based on a true friendship and rescue incident.', true],
-      ['Lucifer', 'Malayalam • Action', 2019, 'https://via.placeholder.com/300x450?text=Lucifer', 'A political action thriller revolving around power, mystery, and leadership.', false],
-      ['Vikram', 'Tamil • Action', 2022, 'https://via.placeholder.com/300x450?text=Vikram', 'An intense action thriller featuring secret agents, gang wars, and explosive revenge.', true],
-      ['Leo', 'Tamil • Action', 2023, 'https://via.placeholder.com/300x450?text=Leo', 'A stylish action thriller about a man whose past returns to haunt him.', true],
-      ['96', 'Tamil • Romance', 2018, 'https://via.placeholder.com/300x450?text=96', 'A nostalgic romantic drama about two former lovers reuniting after years.', true],
-      ['Jigarthanda DoubleX', 'Tamil • Crime', 2023, 'https://via.placeholder.com/300x450?text=Jigarthanda+DoubleX', 'A bold crime drama blending cinema, politics, and rebellion.', false],
-      ['Kaithi', 'Tamil • Thriller', 2019, 'https://via.placeholder.com/300x450?text=Kaithi', 'A high-octane thriller that unfolds over a single dangerous night.', true]
+      ['2018', 'Malayalam • Drama', 2023, 'https://picsum.photos/300/450?random=1', 'A survival drama based on the devastating Kerala floods and the resilience of ordinary people.', true],
+      ['Premam', 'Malayalam • Romance', 2015, 'https://picsum.photos/300/450?random=2', 'A coming-of-age romantic drama that follows different stages of love in George\'s life.', true],
+      ['Bramayugam', 'Malayalam • Horror', 2024, 'https://picsum.photos/300/450?random=3', 'A dark black-and-white horror thriller set in an eerie ancient mansion.', true],
+      ['Manjummel Boys', 'Malayalam • Adventure', 2024, 'https://picsum.photos/300/450?random=4', 'A gripping survival thriller based on a true friendship and rescue incident.', true],
+      ['Lucifer', 'Malayalam • Action', 2019, 'https://picsum.photos/300/450?random=5', 'A political action thriller revolving around power, mystery, and leadership.', false],
+      ['Vikram', 'Tamil • Action', 2022, 'https://picsum.photos/300/450?random=6', 'An intense action thriller featuring secret agents, gang wars, and explosive revenge.', true],
+      ['Leo', 'Tamil • Action', 2023, 'https://picsum.photos/300/450?random=7', 'A stylish action thriller about a man whose past returns to haunt him.', true],
+      ['96', 'Tamil • Romance', 2018, 'https://picsum.photos/300/450?random=8', 'A nostalgic romantic drama about two former lovers reuniting after years.', true],
+      ['Jigarthanda DoubleX', 'Tamil • Crime', 2023, 'https://picsum.photos/300/450?random=9', 'A bold crime drama blending cinema, politics, and rebellion.', false],
+      ['Kaithi', 'Tamil • Thriller', 2019, 'https://picsum.photos/300/450?random=10', 'A high-octane thriller that unfolds over a single dangerous night.', true]
     ];
     
     for (const movie of movies) {

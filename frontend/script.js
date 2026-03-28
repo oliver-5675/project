@@ -10,14 +10,14 @@ const reviewForm = document.getElementById("reviewForm");
 const reviewMessage = document.getElementById("reviewMessage");
 const searchInput = document.getElementById("searchInput");
 
-// Fallback mock data with reliable placeholder images
+// Fallback mock data with working images
 const FALLBACK_MOVIES = [
   {
     id: 1,
     title: "2018",
     genre: "Malayalam • Drama",
     year: 2023,
-    poster: "https://via.placeholder.com/300x450?text=2018",
+    poster: "https://picsum.photos/300/450?random=1",
     description: "A survival drama based on the devastating Kerala floods and the resilience of ordinary people.",
     recommended: true
   },
@@ -26,7 +26,7 @@ const FALLBACK_MOVIES = [
     title: "Premam",
     genre: "Malayalam • Romance",
     year: 2015,
-    poster: "https://via.placeholder.com/300x450?text=Premam",
+    poster: "https://picsum.photos/300/450?random=2",
     description: "A coming-of-age romantic drama that follows different stages of love in George's life.",
     recommended: true
   },
@@ -35,7 +35,7 @@ const FALLBACK_MOVIES = [
     title: "Bramayugam",
     genre: "Malayalam • Horror",
     year: 2024,
-    poster: "https://via.placeholder.com/300x450?text=Bramayugam",
+    poster: "https://picsum.photos/300/450?random=3",
     description: "A dark black-and-white horror thriller set in an eerie ancient mansion.",
     recommended: true
   },
@@ -44,7 +44,7 @@ const FALLBACK_MOVIES = [
     title: "Manjummel Boys",
     genre: "Malayalam • Adventure",
     year: 2024,
-    poster: "https://via.placeholder.com/300x450?text=Manjummel+Boys",
+    poster: "https://picsum.photos/300/450?random=4",
     description: "A gripping survival thriller based on a true friendship and rescue incident.",
     recommended: true
   },
@@ -53,7 +53,7 @@ const FALLBACK_MOVIES = [
     title: "Vikram",
     genre: "Tamil • Action",
     year: 2022,
-    poster: "https://via.placeholder.com/300x450?text=Vikram",
+    poster: "https://picsum.photos/300/450?random=6",
     description: "An intense action thriller featuring secret agents, gang wars, and explosive revenge.",
     recommended: true
   },
@@ -62,7 +62,7 @@ const FALLBACK_MOVIES = [
     title: "Leo",
     genre: "Tamil • Action",
     year: 2023,
-    poster: "https://via.placeholder.com/300x450?text=Leo",
+    poster: "https://picsum.photos/300/450?random=7",
     description: "A stylish action thriller about a man whose past returns to haunt him.",
     recommended: true
   },
@@ -71,7 +71,7 @@ const FALLBACK_MOVIES = [
     title: "96",
     genre: "Tamil • Romance",
     year: 2018,
-    poster: "https://via.placeholder.com/300x450?text=96",
+    poster: "https://picsum.photos/300/450?random=8",
     description: "A nostalgic romantic drama about two former lovers reuniting after years.",
     recommended: true
   },
@@ -80,7 +80,7 @@ const FALLBACK_MOVIES = [
     title: "Kaithi",
     genre: "Tamil • Thriller",
     year: 2019,
-    poster: "https://via.placeholder.com/300x450?text=Kaithi",
+    poster: "https://picsum.photos/300/450?random=10",
     description: "A high-octane thriller that unfolds over a single dangerous night.",
     recommended: true
   }
