@@ -72,18 +72,18 @@ app.post('/api/init-db', async (req, res) => {
       )
     `);
     
-    // Insert movie data with working poster URLs
+    // Insert movie data with reliable image URLs
     const movies = [
-      ['2018', 'Malayalam • Drama', 2023, 'https://images-cdn.tmsimg.com/v7/media/tt11780590/t1000x1500.jpg', 'A survival drama based on the devastating Kerala floods and the resilience of ordinary people.', true],
-      ['Premam', 'Malayalam • Romance', 2015, 'https://images-cdn.tmsimg.com/v7/media/tt3721584/t1000x1500.jpg', 'A coming-of-age romantic drama that follows different stages of love in George\'s life.', true],
-      ['Bramayugam', 'Malayalam • Horror', 2024, 'https://images-cdn.tmsimg.com/v7/media/tt15468944/t1000x1500.jpg', 'A dark black-and-white horror thriller set in an eerie ancient mansion.', true],
-      ['Manjummel Boys', 'Malayalam • Adventure', 2024, 'https://images-cdn.tmsimg.com/v7/media/tt14139154/t1000x1500.jpg', 'A gripping survival thriller based on a true friendship and rescue incident.', true],
-      ['Lucifer', 'Malayalam • Action', 2019, 'https://images-cdn.tmsimg.com/v7/media/tt9099164/t1000x1500.jpg', 'A political action thriller revolving around power, mystery, and leadership.', false],
-      ['Vikram', 'Tamil • Action', 2022, 'https://images-cdn.tmsimg.com/v7/media/tt13440076/t1000x1500.jpg', 'An intense action thriller featuring secret agents, gang wars, and explosive revenge.', true],
-      ['Leo', 'Tamil • Action', 2023, 'https://images-cdn.tmsimg.com/v7/media/tt13142824/t1000x1500.jpg', 'A stylish action thriller about a man whose past returns to haunt him.', true],
-      ['96', 'Tamil • Romance', 2018, 'https://images-cdn.tmsimg.com/v7/media/tt8190976/t1000x1500.jpg', 'A nostalgic romantic drama about two former lovers reuniting after years.', true],
-      ['Jigarthanda DoubleX', 'Tamil • Crime', 2023, 'https://images-cdn.tmsimg.com/v7/media/tt15346294/t1000x1500.jpg', 'A bold crime drama blending cinema, politics, and rebellion.', false],
-      ['Kaithi', 'Tamil • Thriller', 2019, 'https://images-cdn.tmsimg.com/v7/media/tt10043888/t1000x1500.jpg', 'A high-octane thriller that unfolds over a single dangerous night.', true]
+      ['2018', 'Malayalam • Drama', 2023, 'https://via.placeholder.com/300x450?text=2018', 'A survival drama based on the devastating Kerala floods and the resilience of ordinary people.', true],
+      ['Premam', 'Malayalam • Romance', 2015, 'https://via.placeholder.com/300x450?text=Premam', 'A coming-of-age romantic drama that follows different stages of love in George\'s life.', true],
+      ['Bramayugam', 'Malayalam • Horror', 2024, 'https://via.placeholder.com/300x450?text=Bramayugam', 'A dark black-and-white horror thriller set in an eerie ancient mansion.', true],
+      ['Manjummel Boys', 'Malayalam • Adventure', 2024, 'https://via.placeholder.com/300x450?text=Manjummel+Boys', 'A gripping survival thriller based on a true friendship and rescue incident.', true],
+      ['Lucifer', 'Malayalam • Action', 2019, 'https://via.placeholder.com/300x450?text=Lucifer', 'A political action thriller revolving around power, mystery, and leadership.', false],
+      ['Vikram', 'Tamil • Action', 2022, 'https://via.placeholder.com/300x450?text=Vikram', 'An intense action thriller featuring secret agents, gang wars, and explosive revenge.', true],
+      ['Leo', 'Tamil • Action', 2023, 'https://via.placeholder.com/300x450?text=Leo', 'A stylish action thriller about a man whose past returns to haunt him.', true],
+      ['96', 'Tamil • Romance', 2018, 'https://via.placeholder.com/300x450?text=96', 'A nostalgic romantic drama about two former lovers reuniting after years.', true],
+      ['Jigarthanda DoubleX', 'Tamil • Crime', 2023, 'https://via.placeholder.com/300x450?text=Jigarthanda+DoubleX', 'A bold crime drama blending cinema, politics, and rebellion.', false],
+      ['Kaithi', 'Tamil • Thriller', 2019, 'https://via.placeholder.com/300x450?text=Kaithi', 'A high-octane thriller that unfolds over a single dangerous night.', true]
     ];
     
     for (const movie of movies) {
