@@ -9,6 +9,23 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// TMDB integration: uses TMDB_API_KEY from environment
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+
+async function fetchPosterFromTMDB(title) {
+  if (!TMDB_API_KEY) throw new Error('TMDB_API_KEY not set');
+  const q = encodeURIComponent(title);
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${q}&language=en-US&page=1&include_adult=false`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`TMDB search failed: ${resp.status}`);
+  const data = await resp.json();
+  if (!data.results || data.results.length === 0) return null;
+  const best = data.results[0];
+  if (!best.poster_path) return null;
+  // Return a reasonable size poster URL
+  return `https://image.tmdb.org/t/p/w500${best.poster_path}`;
+}
+
 /* -------------------------
    TEST ROUTE
 ------------------------- */
@@ -33,6 +50,50 @@ app.get('/health', async (req, res) => {
       database: 'disconnected',
       error: err.message
     });
+  }
+});
+
+/* -------------------------
+   TMDB: Fetch poster for a single title
+------------------------- */
+app.get('/api/tmdb-poster', async (req, res) => {
+  const title = req.query.title;
+  if (!title) return res.status(400).json({ error: 'title query required' });
+  try {
+    const poster = await fetchPosterFromTMDB(title);
+    if (!poster) return res.status(404).json({ error: 'poster not found' });
+    res.json({ title, poster });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/* -------------------------
+   TMDB: Batch update posters for all movies in DB
+   Requires TMDB_API_KEY set in environment.
+   Use carefully - this will overwrite `poster` values.
+------------------------- */
+app.post('/api/update-posters-from-tmdb', async (req, res) => {
+  if (!TMDB_API_KEY) return res.status(500).json({ error: 'TMDB_API_KEY not configured' });
+  try {
+    const moviesRes = await pool.query('SELECT id, title FROM movies');
+    const movies = moviesRes.rows;
+    const updated = [];
+    for (const m of movies) {
+      try {
+        const poster = await fetchPosterFromTMDB(m.title);
+        if (poster) {
+          await pool.query('UPDATE movies SET poster = $1 WHERE id = $2', [poster, m.id]);
+          updated.push({ id: m.id, title: m.title, poster });
+        }
+      } catch (innerErr) {
+        // continue on individual failures
+        console.warn('Failed TMDB fetch for', m.title, innerErr.message);
+      }
+    }
+    res.json({ updatedCount: updated.length, updated });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
